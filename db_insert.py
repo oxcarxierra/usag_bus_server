@@ -13,13 +13,35 @@ django.setup() # python manage.py shell 을 실행하는 것이랑 비슷한 방
 from humphreysapp.models import *
 
 # Menu Table 
+def insert_bus_line():
+    with open('data/bus_line_data.csv', newline='', encoding='utf8') as csvfile:
+        data_reader = csv.reader(csvfile)
+        if not BusLine.objects.exists():
+            for row in data_reader:
+                BusLine.objects.create(
+                    name =row[0],
+                    length = row[1],
+                    )
+        print('DATA UPLOADED SUCCESSFULY!')    
+
+def insert_bus_stop():
+    with open('data/bus_stop_data.csv', newline='', encoding='utf8') as csvfile:
+        data_reader = csv.reader(csvfile)
+        if not BusStop.objects.exists():
+            for row in data_reader:
+                BusStop.objects.create(
+                    code =row[0],
+                    name = row[1],
+                    latitude = row[2],
+                    longitude = row[3]
+                )
+        print('DATA UPLOADED SUCCESSFULY!')   
 
 def insert_bus_stop_line():    
     with open('data/bus_stop_line_data.csv', newline='', encoding='utf8') as csvfile:
         data_reader = csv.reader(csvfile)
         if not BusStopLineTable.objects.exists():
             for row in data_reader:
-                print(row)
                 bus_line = BusLine.objects.get(id=row[0])
                 bus_stop = BusStop.objects.get(code=row[1])
                 order = row[2]
@@ -42,4 +64,7 @@ def insert_bus_stop_time():
                 arrival_time=row[i])
         print('DATA UPLOADED SUCCESSFULY!') 
 
+insert_bus_line()
+insert_bus_stop()
+insert_bus_stop_line()
 insert_bus_stop_time()
