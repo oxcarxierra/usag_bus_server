@@ -3,8 +3,7 @@ import django
 import csv
 import sys
 
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'bus_app_api.settings') 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'bus_app_api.settings.prod') 
 # python이 실행될 때 DJANGO_SETTINGS_MODULE라는 환경 변수에
 # 현재 프로젝트의 settings.py 파일 경로를 등록
 django.setup() # python manage.py shell 을 실행하는 것이랑 비슷한 방법이다. 즉 파이썬 파일에서도 django를 실행 시킬수 있다.
